@@ -20,6 +20,19 @@ public class DemoTreeApp {
         return 0;
     }
 
+    private static void defineHierarchyLevel(Node element) {
+        // TODO: Soll je Mitarbeiter die Ebene in der Hierarchie festlegen
+        //element.setLevel(1);
+        // CEO => 1
+        // Abteilungsleieter => 2
+        // usw.
+    }
+
+    private static int employeesInLevel(int level){
+        // TODO: Diese Methode soll herausfinden, wie viele Mitarbeiter ein einer bestimmten Ebene angestellt sind
+        return 0;
+    }
+
     private static int calculateSalary(Node element) {
         if (element == null)
             return 0;

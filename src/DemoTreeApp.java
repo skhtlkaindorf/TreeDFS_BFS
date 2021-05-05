@@ -1,12 +1,59 @@
+import java.util.Stack;
+
 public class DemoTreeApp {
 
     public static void main(String[] args) {
 
-        Node root = buildTree();
+        Node root = buildTree();  // CEO
 
         System.out.println("root = " + root);
         System.out.println("root.getLeft() = " + root.getLeft());
         System.out.println("root.getRight() = " + root.getRight());
+
+        System.out.println("calculateSalary(root) = " + calculateSalaryStack(root));
+     //   System.out.println("calculateSalary(SW) = " + calculateSalary(root.getLeft()));
+    }
+
+    private static int calculateCountDevices(Node element) {
+        // Soll die Anzahl der Geräte summieren und retour liefern
+
+        return 0;
+    }
+
+    private static int calculateSalary(Node element) {
+        if (element == null)
+            return 0;
+
+        System.out.println("element.toString() = " + element.toString());
+        
+        return element.getSalary() +
+                calculateSalary(element.getLeft()) +
+                calculateSalary(element.getMiddle()) +
+                 calculateSalary(element.getRight());
+    }
+
+    private static int calculateSalaryStack(Node root) {
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+
+        Node element = null;
+        int salary = 0;
+        while (!stack.isEmpty()) {
+            element = stack.pop();
+            salary += element.getSalary();
+
+            System.out.println("element = " + element);
+
+            if (element.getRight() != null)
+                stack.push(element.getRight());
+            if (element.getMiddle() != null)
+                stack.push(element.getMiddle());
+            if (element.getLeft() != null)
+                stack.push(element.getLeft());
+        }
+
+
+        return salary;
 
     }
 

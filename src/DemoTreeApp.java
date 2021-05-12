@@ -18,7 +18,9 @@ public class DemoTreeApp {
         //System.out.println("calculateCountDevices(DEV) = " + calculateCountDevices(root.getLeft()));
      //   System.out.println("calculateSalary(SW) = " + calculateSalary(root.getLeft()));
 
-        defineHierarchyLevel(root);
+        System.out.println("employeesInLevel(root, 1) = " + employeesInLevel(root, 1));
+        System.out.println("employeesInLevel(root, 3) = " + employeesInLevel(root, 3));
+        System.out.println("employeesInLevel(root, 4) = " + employeesInLevel(root, 4));
     }
 
     private static int calculateCountDevices(Node root) {
@@ -55,7 +57,6 @@ public class DemoTreeApp {
         // Abteilungsleiter => 2
         // Teamleiter => 3
         // usw.
-        int level = 0;
         while (!queue.isEmpty()) {
             Node currentElement = queue.poll();
 
@@ -76,9 +77,35 @@ public class DemoTreeApp {
         }
     }
 
-    private static int employeesInLevel(int level){
-        // TODO: Diese Methode soll herausfinden, wie viele Mitarbeiter ein einer bestimmten Ebene angestellt sind
-        return 0;
+    private static int employeesInLevel(Node element, int level){
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(element);
+        element.setLevel(1);
+        int counter = 0;
+        while (!queue.isEmpty()) {
+            Node currentElement = queue.poll();
+
+            if (currentElement.getLevel() == level) {
+                counter++;
+                continue;
+            }
+
+           // System.out.println("currentElement = " + currentElement);
+
+            if (currentElement.getLeft() != null) {
+                currentElement.getLeft().setLevel(currentElement.getLevel() + 1);
+                queue.add(currentElement.getLeft());
+            }
+            if (currentElement.getMiddle() != null) {
+                currentElement.getMiddle().setLevel(currentElement.getLevel() + 1);
+                queue.add(currentElement.getMiddle());
+            }
+            if (currentElement.getRight() != null) {
+                currentElement.getRight().setLevel(currentElement.getLevel() + 1);
+                queue.add(currentElement.getRight());
+            }
+        }
+        return counter;
     }
 
     private static int calculateSalary(Node element) {

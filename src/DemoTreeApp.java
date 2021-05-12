@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class DemoTreeApp {
@@ -11,20 +13,42 @@ public class DemoTreeApp {
         System.out.println("root.getRight() = " + root.getRight());
 
         System.out.println("calculateSalary(root) = " + calculateSalaryStack(root));
+
+        System.out.println("calculateCountDevices(root) = " + calculateCountDevices(root));
+        System.out.println("calculateCountDevices(DEV) = " + calculateCountDevices(root.getLeft()));
      //   System.out.println("calculateSalary(SW) = " + calculateSalary(root.getLeft()));
     }
 
-    private static int calculateCountDevices(Node element) {
-        // Soll die Anzahl der Geräte summieren und retour liefern
+    private static int calculateCountDevices(Node root) {
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
 
-        return 0;
+        Node element = null;
+        int countDevices = 0;
+        while (!stack.isEmpty()) {
+            element = stack.pop();
+            countDevices += element.getCountDevices();
+
+            System.out.println("element = " + element);
+
+            if (element.getRight() != null)
+                stack.push(element.getRight());
+            if (element.getMiddle() != null)
+                stack.push(element.getMiddle());
+            if (element.getLeft() != null)
+                stack.push(element.getLeft());
+        }
+
+        return countDevices;
     }
 
     private static void defineHierarchyLevel(Node element) {
+
+        Queue<Node> queue = new LinkedList<>();
         // TODO: Soll je Mitarbeiter die Ebene in der Hierarchie festlegen
         //element.setLevel(1);
         // CEO => 1
-        // Abteilungsleieter => 2
+        // Abteilungsleiter => 2
         // usw.
     }
 

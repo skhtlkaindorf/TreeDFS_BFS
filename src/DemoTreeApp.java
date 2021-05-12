@@ -12,11 +12,13 @@ public class DemoTreeApp {
         System.out.println("root.getLeft() = " + root.getLeft());
         System.out.println("root.getRight() = " + root.getRight());
 
-        System.out.println("calculateSalary(root) = " + calculateSalaryStack(root));
+        //System.out.println("calculateSalary(root) = " + calculateSalaryStack(root));
 
-        System.out.println("calculateCountDevices(root) = " + calculateCountDevices(root));
-        System.out.println("calculateCountDevices(DEV) = " + calculateCountDevices(root.getLeft()));
+        //System.out.println("calculateCountDevices(root) = " + calculateCountDevices(root));
+        //System.out.println("calculateCountDevices(DEV) = " + calculateCountDevices(root.getLeft()));
      //   System.out.println("calculateSalary(SW) = " + calculateSalary(root.getLeft()));
+
+        defineHierarchyLevel(root);
     }
 
     private static int calculateCountDevices(Node root) {
@@ -45,11 +47,33 @@ public class DemoTreeApp {
     private static void defineHierarchyLevel(Node element) {
 
         Queue<Node> queue = new LinkedList<>();
+        queue.add(element);
+        element.setLevel(1);
         // TODO: Soll je Mitarbeiter die Ebene in der Hierarchie festlegen
         //element.setLevel(1);
         // CEO => 1
         // Abteilungsleiter => 2
+        // Teamleiter => 3
         // usw.
+        int level = 0;
+        while (!queue.isEmpty()) {
+            Node currentElement = queue.poll();
+
+            System.out.println("currentElement = " + currentElement);
+
+            if (currentElement.getLeft() != null) {
+                currentElement.getLeft().setLevel(currentElement.getLevel() + 1);
+                queue.add(currentElement.getLeft());
+            }
+            if (currentElement.getMiddle() != null) {
+                currentElement.getMiddle().setLevel(currentElement.getLevel() + 1);
+                queue.add(currentElement.getMiddle());
+            }
+            if (currentElement.getRight() != null) {
+                currentElement.getRight().setLevel(currentElement.getLevel() + 1);
+                queue.add(currentElement.getRight());
+            }
+        }
     }
 
     private static int employeesInLevel(int level){
